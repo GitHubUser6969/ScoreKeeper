@@ -32,15 +32,15 @@ import android.widget.TextView;
  */
 public class MainActivity extends AppCompatActivity {
 
-    // Member variables for holding the score
-    private int mScore1;
-    private int mScore2;
+
+    private int mscore_1;
+    private int mscore_2;
 
 
     private TextView mScoreText1;
     private TextView mScoreText2;
 
-    // Tags to be used as the keys in OnSavedInstanceState
+
     static final String STATE_SCORE_1 = "Team 1 Score";
     static final String STATE_SCORE_2 = "Team 2 Score";
 
@@ -55,15 +55,15 @@ public class MainActivity extends AppCompatActivity {
 
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
 
-        //Find the TextViews by ID
+
         mScoreText1 = findViewById(R.id.score_1);
         mScoreText2 = findViewById(R.id.score_2);
 
 
-        mScore1 = mPreferences.getInt(STATE_SCORE_1,0);
-        mScore2 = mPreferences.getInt(STATE_SCORE_2, 0);
-        mScoreText1.setText(String.valueOf(mScore1));
-        mScoreText2.setText(String.valueOf(mScore2));
+        mscore_1 = mPreferences.getInt(STATE_SCORE_1,0);
+        mscore_2 = mPreferences.getInt(STATE_SCORE_2, 0);
+        mScoreText1.setText(String.valueOf(mscore_1));
+        mScoreText2.setText(String.valueOf(mscore_2));
 
 
     }
@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onPause();
         SharedPreferences.Editor preferencesEditor = mPreferences.edit();
-        preferencesEditor.putInt(STATE_SCORE_1, mScore1);
-        preferencesEditor.putInt(STATE_SCORE_2, mScore2);
+        preferencesEditor.putInt(STATE_SCORE_1, mscore_1);
+        preferencesEditor.putInt(STATE_SCORE_2, mscore_2);
         preferencesEditor.apply();
 
     }
@@ -84,20 +84,20 @@ public class MainActivity extends AppCompatActivity {
      * @param view The button view that was clicked
      */
     public void decreaseScore(View view) {
-        // Get the ID of the button that was clicked.
+
         int viewID = view.getId();
         switch (viewID) {
-            // If it was on Team 1:
+
             case R.id.decreaseTeam1:
-                // Decrement the score and update the TextView.
-                mScore1--;
-                mScoreText1.setText(String.valueOf(mScore1));
+
+                mscore_1--;
+                mScoreText1.setText(String.valueOf(mscore_1));
                 break;
-            // If it was Team 2:
+
             case R.id.decreaseTeam2:
-                // Decrement the score and update the TextView.
-                mScore2--;
-                mScoreText2.setText(String.valueOf(mScore2));
+
+                mscore_2--;
+                mScoreText2.setText(String.valueOf(mscore_2));
         }
     }
 
@@ -107,20 +107,16 @@ public class MainActivity extends AppCompatActivity {
      * @param view The button view that was clicked
      */
     public void increaseScore(View view) {
-        // Get the ID of the button that was clicked.
         int viewID = view.getId();
         switch (viewID) {
-            // If it was on Team 1:
             case R.id.increaseTeam1:
-                // Increment the score and update the TextView.
-                mScore1++;
-                mScoreText1.setText(String.valueOf(mScore1));
+                mscore_1++;
+                mScoreText1.setText(String.valueOf(mscore_1));
                 break;
-            // If it was Team 2:
+
             case R.id.increaseTeam2:
-                // Increment the score and update the TextView.
-                mScore2++;
-                mScoreText2.setText(String.valueOf(mScore2));
+                mscore_2++;
+                mScoreText2.setText(String.valueOf(mscore_2));
         }
     }
 
@@ -133,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        // Change the label of the menu based on the state of the app.
         int nightMode = AppCompatDelegate.getDefaultNightMode();
         if(nightMode == AppCompatDelegate.MODE_NIGHT_YES){
             menu.findItem(R.id.night_mode).setTitle(R.string.day_mode);
@@ -152,11 +147,8 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Check if the correct item was clicked.
         if (item.getItemId() == R.id.night_mode) {
-            // Get the night mode state of the app.
             int nightMode = AppCompatDelegate.getDefaultNightMode();
-            // Set the theme mode for the restarted activity.
             if (nightMode == AppCompatDelegate.MODE_NIGHT_YES) {
                 AppCompatDelegate.setDefaultNightMode
                         (AppCompatDelegate.MODE_NIGHT_NO);
@@ -164,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
                 AppCompatDelegate.setDefaultNightMode
                         (AppCompatDelegate.MODE_NIGHT_YES);
             }
-            // Recreate the activity for the theme change to take effect.
             recreate();
         }
         return true;
@@ -175,10 +166,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor preferencesEditor = mPreferences.edit();
         preferencesEditor.clear();
         preferencesEditor.apply();
-        mScore1 = 0;
-        mScore2 = 0;
-        mScoreText1.setText(String.valueOf(mScore1));
-        mScoreText2.setText(String.valueOf(mScore2));
+        mscore_1 = 0;
+        mscore_2 = 0;
+        mScoreText1.setText(String.valueOf(mscore_1));
+        mScoreText2.setText(String.valueOf(mscore_2));
 
 
     }
